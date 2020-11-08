@@ -1,7 +1,7 @@
 const express=require('express');
 const dotenv=require('dotenv');
 const morgan=require('morgan');
-const router=require('./routes/main');
+const router=require('./routes/index');
 const exphbs=require('express-handlebars')
 const connectDB=require('./config/db');
 
