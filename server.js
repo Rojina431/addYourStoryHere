@@ -1,4 +1,5 @@
 const express=require('express');
+const path=require('path');
 const dotenv=require('dotenv');
 const morgan=require('morgan');
 const router=require('./routes/index');
@@ -13,6 +14,9 @@ const app=express();
 if(process.env.NODE_ENV=='devlopment'){
     app.use(morgan('dev'))
 }
+
+//static
+app.use(express.static(path.join(__dirname,'public')))
 
 //handlebars
 app.engine('.hbs', exphbs({defaultLayout:'main',extname:'.hbs'}));
