@@ -31,10 +31,12 @@ app.use(express.static(path.join(__dirname,'public')))
 
 
 //handlebars
-const {formatDate}=require('./helper/hbs');
+const {formatDate,truncate,stripTags}=require('./helper/hbs');
 //handlebars
 app.engine('.hbs', exphbs({helpers:{
   formatDate,
+  truncate,
+  stripTags
 },defaultLayout:'main',extname:'.hbs'}));
 app.set('view engine', '.hbs');
 
