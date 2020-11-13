@@ -6,18 +6,18 @@
       <thead>
           <tr>
               <th>Title</th>
-              <tr>Date</tr>
-              <tr>Status</tr>
+              <th>Date</th>
+              <th>Status</th>
           </tr>
       </thead>
+      {{#each stories}}
       <tbody>
-          {{#each stories}}
           <td><a href='/stories/{{_id}}'>{{title}}</td>
-          <td>{{createdAt}}</td>
-          <td><span class="dash-status">{{Status}}</span></td>
-          <td></td>
-          {{/each}}
+          <td>{{formatDate createdAt "dddd, MMMM Do YYYY, h:m:ss"}}</td>
+          <td><span class="dash-status">{{status}}</span></td>
+          <td></td> 
       </tbody>
+       {{/each}}
   </table>
 {{else}}
 <p>You have no stories</p>

@@ -29,8 +29,13 @@ if(process.env.NODE_ENV=='devlopment'){
 //static
 app.use(express.static(path.join(__dirname,'public')))
 
+
 //handlebars
-app.engine('.hbs', exphbs({defaultLayout:'main',extname:'.hbs'}));
+const {formatDate}=require('./helper/hbs');
+//handlebars
+app.engine('.hbs', exphbs({helpers:{
+  formatDate,
+},defaultLayout:'main',extname:'.hbs'}));
 app.set('view engine', '.hbs');
 
 //sessions
