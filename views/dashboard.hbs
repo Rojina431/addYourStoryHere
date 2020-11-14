@@ -14,7 +14,7 @@
       <tbody>
           <td><a href='/stories/{{_id}}'>{{title}}</td>
           <td>{{formatDate createdAt "dddd, MMMM Do YYYY, h:m:ss"}}</td>
-          <td><span class="dash-status">{{status}}</span></td>
+          <td><a href="/stories/edit/{{_id}}"><span class="dash-status">{{status}}</span></a></td>
           <td></td> 
       </tbody>
        {{/each}}
