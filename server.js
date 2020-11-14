@@ -31,12 +31,13 @@ app.use(express.static(path.join(__dirname,'public')))
 
 
 //handlebars
-const {formatDate,truncate,stripTags}=require('./helper/hbs');
+const {formatDate,truncate,stripTags,editIcon}=require('./helper/hbs');
 //handlebars
 app.engine('.hbs', exphbs({helpers:{
   formatDate,
   truncate,
-  stripTags
+  stripTags,
+  editIcon
 },defaultLayout:'main',extname:'.hbs'}));
 app.set('view engine', '.hbs');
 
@@ -52,6 +53,12 @@ var sess = {
 //passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
+
+//global variables
+app.use(function(req,res,next){
+  res.locals.user=req.user || null
+  next()
+ })
 
 app.use('/',router);
 app.use('/auth',require('./routes/auth'));

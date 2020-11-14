@@ -5,7 +5,7 @@ const Story=require('../models/Story')
 
 //get added story
 router.get('/add',ensureAuth,(req,res)=>{
-    res.render('story/add')
+    res.render('story/add')  
 })
 
 //post story
