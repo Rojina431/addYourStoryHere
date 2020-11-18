@@ -71,4 +71,55 @@ router.put('/:id',ensureAuth,async(req,res)=>{
     }
 })
 
+//delete added story
+router.delete('/:id',ensureAuth,async (req,res)=>{
+    try {
+        let story=await Story.findById(req.params.id).lean()
+        if(!story){
+            res.render('error/404')
+        }else{
+                await Story.findByIdAndRemove({_id:req.params.id})
+                res.redirect('/dashboard')
+        }
+    } catch (error) {
+        console.log(err);
+        res.render('error/500')
+    }
+  
+})
+
+//get single story
+router.get('/:id',ensureAuth,async (req,res)=>{
+    try{
+       const story=await Story.findById(req.params.id).populate('user').lean()
+      if(!story){
+          res.render('error/404')
+      }else{
+          if(story.user._id!=req.user.id){
+            res.render('error/404')  
+          }else{
+            res.render('story/show',{
+                story,
+            });
+          }
+      }
+    }catch(err){
+        console.log(err)
+        res.render('error/500')
+    }
+})
+
+//get more stories from single user
+router.get('/user/:userId',ensureAuth,async (req,res)=>{
+    try{
+       const stories=await Story.find({user:req.params.userId,status:"public"}).populate('user').lean()
+       res.render('story/index', {
+        stories,
+       })
+    }catch(err){
+        console.log(err)
+        res.render('error/500')
+    }
+})
+
 module.exports=router
