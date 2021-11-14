@@ -13,11 +13,10 @@ router.post('/',ensureAuth,async (req,res)=>{
    try{
     req.body.user=req.user.id
     const stories=await Story.create(req.body)
-    res.render('dashboard',{
-        stories
-    });
+    const allstories=await Story.find({user:req.user.id})
+    res.redirect('/dashboard')
    }catch(e){
-       console.log(error);
+       console.log(e);
        res.render('error/500')
    }
 })
